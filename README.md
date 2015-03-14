@@ -1,5 +1,6 @@
 # laaser_shop_system
 PHP Shop System für PHP-Fusion
+Öffentliches Repository: https://github.com/Thomas-Mielke-Software/laaser_shop_system
 
 Copyright: Jürgen Laaser, 2002-2005
 * angepasst für Fusion 5 von Carsten Pukass
