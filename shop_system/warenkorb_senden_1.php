@@ -16,6 +16,8 @@
 | angepasst für Fusion 7 von Thomas Mielke
 +-----------------------------------------------------*/
 
+//error_reporting(E_ALL);
+//ini_set("display_errors", 1); 
 require_once "../../maincore.php";
 require_once THEMES."templates/header.php";
 
@@ -54,8 +56,8 @@ if(!isset($color8)) $color8 = $TEXT;
 if(!isset($color9)) $color9 = $TEXT;
 if(!isset($color10)) $color10 = $TEXT;
 
-$conn_id = mysql_connect($HOST,$ID,$PW);
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 
 opentable("Bestellung");
 
@@ -194,9 +196,9 @@ if ($header == "ok") {
                   <td height="26" colspan="3"> 
                     <select name="zahlungsart" class="textbox">
                       <?
-				$result = mysql_query("select art, art_kosten from ".$PREFIX."_Zahlarten order by art");
+				$result = mysqli_query($conn_id, "select art, art_kosten from ".$PREFIX."_Zahlarten order by art");
 				
-				while ($row = mysql_fetch_object($result))	
+				while ($row = mysqli_fetch_object($result))	
 					{ 
 					
 					echo "<option value='$row->art'>$row->art (Versandkosten: " , number_format($row->art_kosten,2,",",".") , " $waehrung) </option>";

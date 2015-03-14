@@ -34,7 +34,7 @@ if (!isset($_GET['start'])) $_GET['start'] = 0;
 if (!isset($_GET['next_start'])) $_GET['next_start'] = "0";
 if (!isset($_GET['sort'])) $_GET['sort'] = "";
 
-opentable("Artikel Übersicht");
+opentable("Artikel &Uuml;bersicht");
 
 ?>
 
@@ -71,11 +71,11 @@ opentable("Artikel Übersicht");
     <td height="30" width="372">&nbsp;</td>
   </tr>
   <?
-  $conn_id = mysql_connect($HOST,$ID,$PW);
-  mysql_select_db($DB,$conn_id);
+  $conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+  //mysql_select_db($DB,$conn_id);
   
-  $result = mysql_query("select * from ".$PREFIX."_Artikel where kategorie = '".mysql_real_escape_string($_GET['kategorie'])."' order by $sortby LIMIT ".mysql_real_escape_string($_GET['start']).", $ds_anzahl");
-  while ($row = mysql_fetch_object($result))
+  $result = mysqli_query($conn_id, "select * from ".$PREFIX."_Artikel where kategorie = '".mysqli_real_escape_string($conn_id, $_GET['kategorie'])."' order by $sortby LIMIT ".mysqli_real_escape_string($conn_id, $_GET['start']).", $ds_anzahl");
+  while ($row = mysqli_fetch_object($result))
  	{
 		
 		$kategorie1    = $row->kategorie;
@@ -112,7 +112,7 @@ opentable("Artikel Übersicht");
 	
 	<?php
 	
-	$result = mysql_query("select id from ".$PREFIX."_Artikel where kategorie = ".mysql_real_escape_string($_GET['kategorie'])."");
+	$result = mysqli_query($conn_id, "select id from ".$PREFIX."_Artikel where kategorie = ".mysqli_real_escape_string($conn_id, $_GET['kategorie'])."");
 	$num = mysql_numrows($result);
 	
 	if ($num > $ds_anzahl) 

@@ -39,12 +39,12 @@ if (!isset($action1)) $action1 = "";
 if ($_POST['typ'] == "edit")
 	{
 
-		$conn_id = mysql_connect($HOST,$ID,$PW);
-		mysql_select_db($DB,$conn_id);
+		$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+		//mysql_select_db($DB,$conn_id);
 		
-		mysql_query("update ".$PREFIX."_Untergruppen set anzeige ='".mysql_real_escape_string($_POST['anzeige'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-		mysql_query("update ".$PREFIX."_Untergruppen set name ='".mysql_real_escape_string($_POST['kategorie'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-		mysql_query("update ".$PREFIX."_Untergruppen set main_kat ='".mysql_real_escape_string($_POST['main_kat'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Untergruppen set anzeige ='".mysqli_real_escape_string($conn_id, $_POST['anzeige'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Untergruppen set name ='".mysqli_real_escape_string($conn_id, $_POST['kategorie'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Untergruppen set main_kat ='".mysqli_real_escape_string($conn_id, $_POST['main_kat'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
 		
 		mysql_close($conn_id);
 		
@@ -52,7 +52,7 @@ if ($_POST['typ'] == "edit")
 
 	}
 
-if (mysql_real_escape_string($_POST['typ']) == "new")
+if (mysqli_real_escape_string($conn_id, $_POST['typ']) == "new")
 	{
 
 		if (!$_POST['neu_kategorie']): $action = "error";
@@ -63,10 +63,10 @@ if (mysql_real_escape_string($_POST['typ']) == "new")
 		if ($action == "erfolg") 
 			{
 	
-				$conn_id = mysql_connect($HOST,$ID,$PW);
-				mysql_select_db($DB,$conn_id);
+				$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+				//mysql_select_db($DB,$conn_id);
 				
-				mysql_query("insert into ".$PREFIX."_Untergruppen (anzeige,name,main_kat) VALUES ('".mysql_real_escape_string($_POST['neu_anzeige'])."','".mysql_real_escape_string($_POST['neu_kategorie'])."','".mysql_real_escape_string($_POST['main_kat'])."')"); 
+				mysqli_query($conn_id, "insert into ".$PREFIX."_Untergruppen (anzeige,name,main_kat) VALUES ('".mysqli_real_escape_string($conn_id, $_POST['neu_anzeige'])."','".mysqli_real_escape_string($conn_id, $_POST['neu_kategorie'])."','".mysqli_real_escape_string($conn_id, $_POST['main_kat'])."')"); 
 			
 				mysql_close($conn_id);
 				
@@ -82,16 +82,16 @@ if (mysql_real_escape_string($_POST['typ']) == "new")
 if ($_GET['typ'] == "delete")
 	{
 		
-		$conn_id = mysql_connect($HOST,$ID,$PW);
-		mysql_select_db($DB,$conn_id);
+		$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+		//mysql_select_db($DB,$conn_id);
 	
-		$result = mysql_query("select id from ".$PREFIX."_Artikel where kategorie = '".mysql_real_escape_string($_GET['id'])."'");
+		$result = mysqli_query($conn_id, "select id from ".$PREFIX."_Artikel where kategorie = '".mysqli_real_escape_string($conn_id, $_GET['id'])."'");
 		$num = mysql_numrows($result);
 		
 		if ($num == "0") 
 			{
 			
-				mysql_query("delete from ".$PREFIX."_Untergruppen where id = '".mysql_real_escape_string($_GET['id'])."'");
+				mysqli_query($conn_id, "delete from ".$PREFIX."_Untergruppen where id = '".mysqli_real_escape_string($conn_id, $_GET['id'])."'");
 				$action = "erfolg";
 			
 			}
@@ -102,8 +102,8 @@ if ($_GET['typ'] == "delete")
 
 	}
 	
-$conn_id = mysql_connect($HOST,$ID,$PW);
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 
 opentable("Unterkategorien Verwaltung");
 
@@ -153,9 +153,9 @@ opentable("Unterkategorien Verwaltung");
   if ($_GET['sort'] == "anzeige") $sortby = "anzeige ,main_kat desc, name";
   if ($_GET['sort'] == "kat") $sortby = "name, main_kat desc, anzeige";
   
-  $result = mysql_query("select * from ".$PREFIX."_Untergruppen order by $sortby");
+  $result = mysqli_query($conn_id, "select * from ".$PREFIX."_Untergruppen order by $sortby");
   
-  while ($row = mysql_fetch_object($result))
+  while ($row = mysqli_fetch_object($result))
   	{
 	
 		$id 	  = $row->id;
@@ -179,8 +179,8 @@ opentable("Unterkategorien Verwaltung");
         <select class="textbox" name="main_kat">
 		
 		<?
-		$result1 = mysql_query("select * from ".$PREFIX."_Hauptgruppen where id = '$main_kat'");
-		while ($row1 = mysql_fetch_object($result1))
+		$result1 = mysqli_query($conn_id, "select * from ".$PREFIX."_Hauptgruppen where id = '$main_kat'");
+		while ($row1 = mysqli_fetch_object($result1))
 			{
 			
 				$name2   = $row1->name;
@@ -189,8 +189,8 @@ opentable("Unterkategorien Verwaltung");
 		if ($main_kat) echo "<option value='$main_kat'>$name2</option>";
 		else echo "<option value=''>nicht vorhanden</option>";
 
-		$result2 = mysql_query("select * from ".$PREFIX."_Hauptgruppen order by name");
-		while ($row2 = mysql_fetch_object($result2))
+		$result2 = mysqli_query($conn_id, "select * from ".$PREFIX."_Hauptgruppen order by name");
+		while ($row2 = mysqli_fetch_object($result2))
 			{
 
 				$id1   = $row2->id;
@@ -248,8 +248,8 @@ opentable("Unterkategorien Verwaltung");
       <td height="25"> 
         <select class="textbox" name="main_kat">
         <?
-		$result = mysql_query("select id , name from ".$PREFIX."_Hauptgruppen order by name");
-		while ($row = mysql_fetch_object($result))
+		$result = mysqli_query($conn_id, "select id , name from ".$PREFIX."_Hauptgruppen order by name");
+		while ($row = mysqli_fetch_object($result))
 			{
 
 				$id1   = $row->id;

@@ -24,8 +24,8 @@ include ("xxxxconfig.php");
 include ("templates.php");
 
 
-$conn_id = mysql_connect($HOST,$ID,$PW);
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 
 opentable("Bestellvorgang beendet");
 

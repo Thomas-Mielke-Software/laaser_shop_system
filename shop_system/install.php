@@ -18,12 +18,12 @@
 
 include ("xxxxconfig.php");
 
-$db_test = @mysql_connect($HOST,$ID,$PW);
+$db_test = @mysqli_connect($HOST,$ID,$PW,$DB);
 if ($db_test) {
 
- mysql_select_db($DB,$db_test);
+ //mysql_select_db($DB,$db_test);
 
- $result = mysql_query("select name,inhalt from ".$PREFIX."_Templates");
+ $result = mysqli_query($conn_id, "select name,inhalt from ".$PREFIX."_Templates");
  if ($result) 
  {
 	echo "<p><b>Bitte löschen Sie diese Datei aus dem Verzeichnis!</b></p>";
@@ -34,8 +34,8 @@ if ($db_test) {
  $db_select = @mysql_select_db($DB,$db_test);
  if ($db_select) {
 
-	$conn_id = mysql_connect($HOST,$ID,$PW);
-	mysql_select_db($DB,$conn_id);
+	$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+	//mysql_select_db($DB,$conn_id);
 	
 	$sql = "CREATE TABLE ".$PREFIX."_Session (
 	  id varchar(50) NOT NULL default '',
@@ -43,7 +43,7 @@ if ($db_test) {
 	  PRIMARY KEY  (id)
 	) TYPE=MyISAM";
 	
-	$result = mysql_query($sql,$conn_id); 
+	$result = mysqli_query($conn_id, $sql,$conn_id); 
 	
 
 	$sql = "CREATE TABLE ".$PREFIX."_Warenkorb (
@@ -58,7 +58,7 @@ if ($db_test) {
 	  PRIMARY KEY  (id)
 	) TYPE=MyISAM";
 
-	$result = mysql_query($sql,$conn_id); 
+	$result = mysqli_query($conn_id, $sql,$conn_id); 
 	
 
 	$sql = "CREATE TABLE ".$PREFIX."_Untergruppen (
@@ -69,7 +69,7 @@ if ($db_test) {
 	  PRIMARY KEY  (id)
 	) TYPE=MyISAM";
 	
-	$result = mysql_query($sql,$conn_id); 
+	$result = mysqli_query($conn_id, $sql,$conn_id); 
 	
 
 	$sql = "CREATE TABLE ".$PREFIX."_Hauptgruppen (
@@ -79,7 +79,7 @@ if ($db_test) {
 	  PRIMARY KEY  (id)
 	) TYPE=MyISAM";
 	
-	$result = mysql_query($sql,$conn_id); 
+	$result = mysqli_query($conn_id, $sql,$conn_id); 
 
 
 	$sql = "CREATE TABLE ".$PREFIX."_Templates (
@@ -89,7 +89,7 @@ if ($db_test) {
 	  PRIMARY KEY  (templateid)
 	) TYPE=MyISAM";
 	
-	$result = mysql_query($sql,$conn_id); 
+	$result = mysqli_query($conn_id, $sql,$conn_id); 
 	
 	
 	$sql = "INSERT INTO ".$PREFIX."_Templates (templateid, name, inhalt) VALUES 
@@ -142,7 +142,7 @@ if ($db_test) {
 	(49, 'table_width', '600'),
 	(50, 'mailadresse_mail', 'deine_email@dein_provider.de')";
 
-	$result = mysql_query($sql,$conn_id); 
+	$result = mysqli_query($conn_id, $sql,$conn_id); 
 	
 	
 	$sql = "CREATE TABLE ".$PREFIX."_Artikel (
@@ -159,7 +159,7 @@ if ($db_test) {
 	  PRIMARY KEY  (id)
 	) TYPE=MyISAM";
 	
-	$result = mysql_query($sql,$conn_id); 
+	$result = mysqli_query($conn_id, $sql,$conn_id); 
 	
 	
 	$sql = "CREATE TABLE ".$PREFIX."_Zahlarten (
@@ -171,12 +171,12 @@ if ($db_test) {
 	) TYPE=MyISAM";
 	
 	
-	$result = mysql_query($sql,$conn_id); 
+	$result = mysqli_query($conn_id, $sql,$conn_id); 
 	
 	
 	$sql = "INSERT INTO ".$PREFIX."_Zahlarten (zahlartenid, art, beschreibung, art_kosten) VALUES (1, 'Nachnahme', 'Bitte beachten Sie, dass die Post eine zusätzliche Gebühr von 1,53 EUR verlangt!', '5.00')";
 	
-	$result = mysql_query($sql,$conn_id); 
+	$result = mysqli_query($conn_id, $sql,$conn_id); 
 	
 	
 	$sql = "CREATE TABLE ".$PREFIX."_Bestellungen (
@@ -191,7 +191,7 @@ if ($db_test) {
 	  PRIMARY KEY  (nr)
 	) TYPE=MyISAM";
 	
-	$result = mysql_query($sql,$conn_id); 
+	$result = mysqli_query($conn_id, $sql,$conn_id); 
 	$mysql = "ok";
 	
 	mysql_close($conn_id);

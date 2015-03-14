@@ -28,12 +28,12 @@ if (!isset($_GET['kategorie'])) $_GET['kategorie'] = "";
 if (!isset($_GET['main_kat'])) $_GET['main_kat'] = "";
 if (!isset($_GET['search'])) $_GET['search'] = "";
 
-$conn_id = mysql_connect($HOST,$ID,$PW);
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 
-$result = mysql_query("select * from ".$PREFIX."_Artikel where id = '".mysql_real_escape_string($_GET['id'])."'"); 
+$result = mysqli_query($conn_id, "select * from ".$PREFIX."_Artikel where id = '".mysqli_real_escape_string($conn_id, $_GET['id'])."'"); 
 
-while ($row = mysql_fetch_object($result))
+while ($row = mysqli_fetch_object($result))
 	{
 	
 		$artikelnummer = $row->artikelnummer;

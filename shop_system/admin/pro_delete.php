@@ -21,10 +21,10 @@ if (!iSUPERADMIN){ redirect("../../../index.php"); };
 
 include ("../xxxxconfig.php");
 
-$conn_id = mysql_connect($HOST,$ID,$PW);
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 
-mysql_query("delete from ".$PREFIX."_Artikel where id= '".mysql_real_escape_string($_GET['id'])."'");
+mysqli_query($conn_id, "delete from ".$PREFIX."_Artikel where id= '".mysqli_real_escape_string($conn_id, $_GET['id'])."'");
 
 if ($_GET['bild'] == "ok")
 

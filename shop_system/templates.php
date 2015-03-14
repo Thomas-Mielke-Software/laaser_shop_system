@@ -23,19 +23,20 @@ if ($ID == "" AND $PW == "") echo "Fehler: Diese Datei darf nicht alleine aufger
 else {
 
 
-$db_test = @mysql_connect($HOST,$ID,$PW);
+$db_test = mysqli_connect($HOST,$ID,$PW);
 if (!$db_test) 
 {
 	echo "<b>Es konnte keine Verbindung zur Datenbank aufgebaut werden!</b><br>";
 	echo "<b>Bitte versuchen Sie es später noch einmal!</b>";
 	exit();
 }
+mysqli_close($db_test);
 
 
-$conn_id = mysql_connect($HOST,$ID,$PW);
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 
-$result	= mysql_query("select name,inhalt from ".$PREFIX."_Templates");
+$result	= mysqli_query($conn_id, "select name,inhalt from ".$PREFIX."_Templates");
 if (!$result) 
 {
 	echo "<p><b>Bitte führen Sie die Installationsroutine aus und löschen anschließend die Datei aus dem Verzeichnis!</b></p>";
@@ -44,7 +45,7 @@ if (!$result)
 }
 
 
-while ($row = mysql_fetch_object($result))
+while ($row = mysqli_fetch_object($result))
 {
 	$name_t = $row->name;
 	$templates = $row->inhalt;  
@@ -115,10 +116,10 @@ if (!isset ($action)) $action = "";
 
 // Nummer check
 
-$result	  = mysql_query( "select * from ".$PREFIX."_Session where id = '".mysql_real_escape_string($_GET['nr'])."'" );
-$check_db = mysql_num_rows($result);
+$result	  = mysqli_query($conn_id, "select * from ".$PREFIX."_Session where id = '".mysqli_real_escape_string($conn_id, $_GET['nr'])."'" );
+$check_db = mysqli_num_rows($result);
 if ($check_db == 0) $_GET['nr'] = "";
 
-mysql_close($conn_id);
+mysqli_close($conn_id);
 }
 ?>

@@ -16,14 +16,16 @@
 | angepasst für Fusion 7 von Thomas Mielke
 +-----------------------------------------------------*/
 
+//error_reporting(E_ALL);
+//ini_set("display_errors", 1); 
 require_once "../../maincore.php";
 require_once THEMES."templates/header.php";
 
 include ("xxxxconfig.php");
 include ("templates.php");
 
-$conn_id = mysql_connect($HOST,$ID,$PW);
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 
 if (!$_GET['nr']) 
 
@@ -140,9 +142,9 @@ if ($action == "error") {
 }
 else {
 	  
-$result = mysql_query("select menge, preis from ".$PREFIX."_Warenkorb where nr = '".mysql_real_escape_string($_GET['nr'])."'");
+$result = mysqli_query($conn_id, "select menge, preis from ".$PREFIX."_Warenkorb where nr = '".mysqli_real_escape_string($conn_id, $_GET['nr'])."'");
 
-while ($row=mysql_fetch_object($result))
+while ($row=mysqli_fetch_object($result))
 	{
 	
 	$menge  = $row->menge;
@@ -153,9 +155,9 @@ while ($row=mysql_fetch_object($result))
 	
 	}
 
-$result = mysql_query("select art_kosten from ".$PREFIX."_Zahlarten where art = '$zahlungsart'");
+$result = mysqli_query($conn_id, "select art_kosten from ".$PREFIX."_Zahlarten where art = '$zahlungsart'");
 
-while ($row = mysql_fetch_object($result))
+while ($row = mysqli_fetch_object($result))
 	{
 	
 		$art_kosten = $row->art_kosten;		

@@ -35,8 +35,8 @@ if (!iSUPERADMIN){ redirect("../../../index.php"); };
 include ("../xxxxconfig.php");
 include ("../templates.php");
 
-$conn_id = mysql_connect($HOST,$ID,$PW);
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 
 if (!isset($_GET['typ'])) $_GET['typ'] = "";
 
@@ -45,12 +45,12 @@ if ($_GET['typ'] == "shop")
 
 		$shopzeit = $shopzeit*60;
 		
-		$result = mysql_query("select id , datum from ".$PREFIX."_Session order by id");
+		$result = mysqli_query($conn_id, "select id , datum from ".$PREFIX."_Session order by id");
 		
 		$datum1 = time();
 		$anzahl_WK = "0";
 			
-		while ($row = mysql_fetch_object($result))
+		while ($row = mysqli_fetch_object($result))
 			{
 		
 				$id    = $row->id;
@@ -65,7 +65,7 @@ if ($_GET['typ'] == "shop")
 		
 				$name = "shop";
 		
-				mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_GET['option'])."' where name = '$name'");
+				mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_GET['option'])."' where name = '$name'");
 				
 				header("Location: index.php");
 		

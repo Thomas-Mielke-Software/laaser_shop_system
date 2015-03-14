@@ -31,12 +31,12 @@ include ("../xxxxconfig.php");
 include ("../templates.php");
 
 
-$conn_id = mysql_connect($HOST,$ID,$PW);
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 
-$result = mysql_query("select * from ".$PREFIX."_Artikel where id = '".mysql_real_escape_string($_GET['id'])."'"); 
+$result = mysqli_query($conn_id, "select * from ".$PREFIX."_Artikel where id = '".mysqli_real_escape_string($conn_id, $_GET['id'])."'"); 
 
-while ($row = mysql_fetch_object($result))
+while ($row = mysqli_fetch_object($result))
 	{
 		$id		       = $row->id;
 		$artikelnummer = $row->artikelnummer;
@@ -120,15 +120,15 @@ opentable("Artikel bearbeiten");
       <td height="28"> 
         <select class="textbox" name="neu_kategorie">
           <?
-	    $result = mysql_query("select name , main_kat from ".$PREFIX."_Untergruppen where id = '$kategorie'");
-		while ($row = mysql_fetch_object($result))
+	    $result = mysqli_query($conn_id, "select name , main_kat from ".$PREFIX."_Untergruppen where id = '$kategorie'");
+		while ($row = mysqli_fetch_object($result))
 			{
 			
 				$name2    = $row->name;
 				$main_kat = $row->main_kat;
 				
-				$result1 = mysql_query("select name from ".$PREFIX."_Hauptgruppen where id = '$main_kat'");
-				while ($row1 = mysql_fetch_object($result1))
+				$result1 = mysqli_query($conn_id, "select name from ".$PREFIX."_Hauptgruppen where id = '$main_kat'");
+				while ($row1 = mysqli_fetch_object($result1))
 					{
 					
 						$name3   = $row1->name;
@@ -139,8 +139,8 @@ opentable("Artikel bearbeiten");
 		if ($name3) echo "<option value='$kategorie'>$name3 / $name2</option>";
 		else echo "<option value='$kategorie'>$name2</option>";
 		
-		$result = mysql_query("select * from ".$PREFIX."_Untergruppen order by name");
-		while ($row = mysql_fetch_object($result))
+		$result = mysqli_query($conn_id, "select * from ".$PREFIX."_Untergruppen order by name");
+		while ($row = mysqli_fetch_object($result))
 			{
 			
 				$name      = $row->name;
@@ -149,8 +149,8 @@ opentable("Artikel bearbeiten");
 				
 				$name4 = "";
 				
-				$result1 = mysql_query("select * from ".$PREFIX."_Hauptgruppen where id = '$main_kat1'");
-				while ($row1 = mysql_fetch_object($result1))
+				$result1 = mysqli_query($conn_id, "select * from ".$PREFIX."_Hauptgruppen where id = '$main_kat1'");
+				while ($row1 = mysqli_fetch_object($result1))
 					{
 					
 						$name4   = $row1->name;

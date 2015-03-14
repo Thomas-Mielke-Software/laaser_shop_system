@@ -23,8 +23,8 @@ require_once THEMES."templates/header.php";
 include ("xxxxconfig.php");
 include ("templates.php");
 
-$conn_id = mysql_connect($HOST,$ID,$PW); 
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 
 if (!isset($_GET['start'])) $_GET['start'] = 0;	
 if (!isset($_GET['next_start'])) $_GET['next_start'] = "0";
@@ -79,8 +79,8 @@ if ($header == "ok") {
   
   if (!isset($az)) $az = "0";
   
-  $result = mysql_query("select name , beschreibung , variante1 , variante2 , id , preis , status from ".$PREFIX."_Artikel where name like '%".strtolower($search)."%' OR beschreibung like '%".strtolower($search)."%' order by name"); 				
-  while ($row = mysql_fetch_object($result))
+  $result = mysqli_query($conn_id, "select name , beschreibung , variante1 , variante2 , id , preis , status from ".$PREFIX."_Artikel where name like '%".strtolower($search)."%' OR beschreibung like '%".strtolower($search)."%' order by name"); 				
+  while ($row = mysqli_fetch_object($result))
   	{
 		$id     		= $row->id;
 		$name   		= $row->name;

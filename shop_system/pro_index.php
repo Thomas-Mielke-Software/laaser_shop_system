@@ -54,11 +54,11 @@ opentable("Artikel Verwaltung");
   </tr>
   
   <?
-  $conn_id = mysql_connect($HOST,$ID,$PW);
-  mysql_select_db($DB,$conn_id);
+  $conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+  //mysql_select_db($DB,$conn_id);
 
-  $result = mysql_query("select id , name , main_kat from ".$PREFIX."_Untergruppen order by main_kat desc, anzeige , name");
-  while ($row = mysql_fetch_object($result))
+  $result = mysqli_query($conn_id, "select id , name , main_kat from ".$PREFIX."_Untergruppen order by main_kat desc, anzeige , name");
+  while ($row = mysqli_fetch_object($result))
   	{
 		$id       = $row->id;
 		$name     = $row->name;
@@ -67,8 +67,8 @@ opentable("Artikel Verwaltung");
 		if ($main_kat) 
 			{	
 			
-				$result1 = mysql_query("select name from ".$PREFIX."_Hauptgruppen where id = '$main_kat'");
-				while ($row1 = mysql_fetch_object($result1))
+				$result1 = mysqli_query($conn_id, "select name from ".$PREFIX."_Hauptgruppen where id = '$main_kat'");
+				while ($row1 = mysqli_fetch_object($result1))
 					{
 					
 						$main_name = $row1->name;
@@ -78,7 +78,7 @@ opentable("Artikel Verwaltung");
 			}
 		
 		$anzahl = "0";
-		$result2 = mysql_query("SELECT * FROM ".$PREFIX."_Artikel where kategorie = '$id'");
+		$result2 = mysqli_query($conn_id, "SELECT * FROM ".$PREFIX."_Artikel where kategorie = '$id'");
 		$anzahl = mysql_num_rows($result2);
 		if (!isset($main_name)) $main_name = "";
 	?>

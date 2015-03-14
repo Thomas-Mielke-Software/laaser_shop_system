@@ -38,11 +38,11 @@ if (!isset($_GET['sort'])) $_GET['sort'] = "";
 if ($_POST['typ'] == "edit")
 	{
 
-	$conn_id = mysql_connect($HOST,$ID,$PW);
-	mysql_select_db($DB,$conn_id);
+	$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+    //mysql_select_db($DB,$conn_id);
 
-	mysql_query("update ".$PREFIX."_Hauptgruppen set anzeige ='".mysql_real_escape_string($_POST['anzeige'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-	mysql_query("update ".$PREFIX."_Hauptgruppen set name ='".mysql_real_escape_string($_POST['kategorie'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
+	mysqli_query($conn_id, "update ".$PREFIX."_Hauptgruppen set anzeige ='".mysqli_real_escape_string($conn_id, $_POST['anzeige'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+	mysqli_query($conn_id, "update ".$PREFIX."_Hauptgruppen set name ='".mysqli_real_escape_string($conn_id, $_POST['kategorie'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
 
 	mysql_close($conn_id);	
 	
@@ -61,10 +61,10 @@ if ($_POST['typ'] == "new")
 	if ($action == "erfolg") 
 		{
 
-			$conn_id = mysql_connect($HOST,$ID,$PW);
-			mysql_select_db($DB,$conn_id);
+			$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+			//mysql_select_db($DB,$conn_id);
 	
-			mysql_query("insert into ".$PREFIX."_Hauptgruppen (anzeige,name) VALUES ('".mysql_real_escape_string($_POST['neu_anzeige'])."','".mysql_real_escape_string($_POST['neu_kategorie'])."')"); 
+			mysqli_query($conn_id, "insert into ".$PREFIX."_Hauptgruppen (anzeige,name) VALUES ('".mysqli_real_escape_string($conn_id, $_POST['neu_anzeige'])."','".mysqli_real_escape_string($conn_id, $_POST['neu_kategorie'])."')"); 
 
 			mysql_close($conn_id);
 			
@@ -82,23 +82,23 @@ if ($_GET['typ'] == "delete")
 
 	{
 	
-		$conn_id = mysql_connect($HOST,$ID,$PW);
-		mysql_select_db($DB,$conn_id);
+		$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+		//mysql_select_db($DB,$conn_id);
 				
 		// Hauptkategorie in Unterkategorie löschen
 		
-		$result = mysql_query("select main_kat from ".$PREFIX."_Untergruppen order by main_kat");
-		while ($row = mysql_fetch_object($result))
+		$result = mysqli_query($conn_id, "select main_kat from ".$PREFIX."_Untergruppen order by main_kat");
+		while ($row = mysqli_fetch_object($result))
 			{
 		
 				$main_kat = $row->main_kat;
-				if ($main_kat == $_GET['id']) mysql_query("update ".$PREFIX."_Untergruppen set main_kat = '' where main_kat = '".mysql_real_escape_string($_GET['id'])."'");
+				if ($main_kat == $_GET['id']) mysqli_query($conn_id, "update ".$PREFIX."_Untergruppen set main_kat = '' where main_kat = '".mysqli_real_escape_string($conn_id, $_GET['id'])."'");
 	
 			}
 
 		// Hauptkategorie löschen
 
-		mysql_query("delete from ".$PREFIX."_Hauptgruppen where name= '".mysql_real_escape_string($_GET['name'])."'");
+		mysqli_query($conn_id, "delete from ".$PREFIX."_Hauptgruppen where name= '".mysqli_real_escape_string($conn_id, $_GET['name'])."'");
 
 		mysql_close($conn_id);
 	
@@ -139,12 +139,12 @@ opentable("Hauptkategorien Verwaltung");
   if ($_GET['sort'] == "name") $sortby = "name";
   if ($_GET['sort'] == "anzeige") $sortby = "anzeige";
   
-  $conn_id = mysql_connect($HOST,$ID,$PW);
-  mysql_select_db($DB,$conn_id);
+  $conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+  //mysql_select_db($DB,$conn_id);
 
-  $result = mysql_query("select id , anzeige , name from ".$PREFIX."_Hauptgruppen order by $sortby");
+  $result = mysqli_query($conn_id, "select id , anzeige , name from ".$PREFIX."_Hauptgruppen order by $sortby");
 
-  while ($row = mysql_fetch_object($result))
+  while ($row = mysqli_fetch_object($result))
 	{
 	
 		$id 	 = $row->id;

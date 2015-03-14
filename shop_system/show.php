@@ -22,13 +22,13 @@ require_once THEMES."templates/header.php";
 include ("xxxxconfig.php");
 include ("templates.php");
 
-$conn_id = mysql_connect($HOST,$ID,$PW);
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 
 if (!isset($_GET['start'])) $_GET['start'] = 0;
 if (!isset($_GET['next_start'])) $_GET['next_start'] = "0";
 
-opentable("Artikel Übersicht");
+opentable("Artikel &Uuml;bersicht");
 
 if ($shop == "enable") {
 if ($header == "ok") {
@@ -46,8 +46,8 @@ if ($header == "ok") {
     </td>
   </tr>
   <?
-  $result = mysql_query("select * from ".$PREFIX."_Untergruppen where id = '".mysql_real_escape_string($_GET['kategorie'])."'"); 
-  while ($row = mysql_fetch_object($result))
+  $result = mysqli_query($conn_id, "select * from ".$PREFIX."_Untergruppen where id = '".mysqli_real_escape_string($conn_id, $_GET['kategorie'])."'"); 
+  while ($row = mysqli_fetch_object($conn_id, $result))
   	 {
 	 
 	  $name   = $row->name;
@@ -76,8 +76,8 @@ if ($header == "ok") {
   <tr> 
     <td bgcolor="<? echo $TABLE_COLOR2 ?>" height="20" colspan="0"> 
       <?
-	$result = mysql_query("select id from ".$PREFIX."_Artikel where kategorie = ".mysql_real_escape_string($_GET['kategorie'])."");
-	$num = mysql_numrows($result);
+	$result = mysqli_query($conn_id, "select id from ".$PREFIX."_Artikel where kategorie = ".mysqli_real_escape_string($conn_id, $_GET['kategorie'])."");
+	$num = mysqli_num_rows($result);
 	if ($num == "0") 
 		{
 	?>
@@ -115,8 +115,8 @@ if ($header == "ok") {
           </td>
         </tr>
         <?
-		$result = mysql_query("select * from ".$PREFIX."_Artikel where kategorie = ".mysql_real_escape_string($_GET['kategorie'])." order by name LIMIT ".mysql_real_escape_string($_GET['start']).", $ds_anzahl");
-		while ($row = mysql_fetch_object($result))
+		$result = mysqli_query($conn_id, "select * from ".$PREFIX."_Artikel where kategorie = ".mysqli_real_escape_string($conn_id, $_GET['kategorie'])." order by name LIMIT ".mysqli_real_escape_string($conn_id, $_GET['start']).", $ds_anzahl");
+		while ($row = mysqli_fetch_object($result))
 			{
 				$id		        = $row->id;
 				$kategorie1     = $row->kategorie;
@@ -130,13 +130,13 @@ if ($header == "ok") {
 				$variante2	    = $row->variante2;
 										
 				$preis 			= number_format($preis,2,",",".");
-				
 		?>
         <form name="form1" method="post" action="warenkorb_insert.php?id=<? echo $id ?>&kategorie=<? echo $kategorie1 ?>&main_kat=<? echo $_GET['main_kat'] ?>&start=<? echo $_GET['start'] ?>&nr=<? echo $_GET['nr'] ?>">
-          <?php if ($IMAGE_KAT == "1") { ?>
+		  <?php if ($IMAGE_KAT == "1") { ?>
           <tr bgcolor="<? echo $TABLE_COLOR2 ?>"> 
-            <td width="60" valign="top"><a href="details.php?id=<? echo $id ?>&kategorie=<? echo $_GET['kategorie'] ?>&main_kat=<? echo $_GET['main_kat'] ?>&start=<? echo $_GET['start'] ?>&nr=<? echo $_GET['nr'] ?>"> 
-              <img src="images/artikel/<?php echo $id ?>.jpg" width="50" border="0"></a></td>
+            <td width="240" valign="top"><a href="details.php?id=<? echo $id ?>&kategorie=<? echo $_GET['kategorie'] ?>&main_kat=<? echo $_GET['main_kat'] ?>&start=<? echo $_GET['start'] ?>&nr=<? echo $_GET['nr'] ?>"> 
+			<a name='<? echo $id ?>'>
+                      <img src="images/artikel/<?php echo $id ?>.jpg" width="200" border="0"></a></td>
             <td height="24"> <font size="<? echo $FONTSIZE_NORMAL ?>"> <a href="details.php?id=<? echo $id ?>&kategorie=<? echo $_GET['kategorie'] ?>&main_kat=<? echo $_GET['main_kat'] ?>&start=<? echo $_GET['start'] ?>&nr=<? echo $_GET['nr'] ?>"> 
               <? echo $name ?>
               </a> </font> <font size="<? echo $FONTSIZE_NORMAL ?>"> </font> </td>

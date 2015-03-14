@@ -28,8 +28,8 @@ if (!iSUPERADMIN){ redirect("../../../index.php"); };
 
 include ("../xxxxconfig.php");
 
-$conn_id = mysql_connect($HOST,$ID,$PW);
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 
 opentable("Artikel hinzuf&uuml;gen");
 
@@ -93,8 +93,8 @@ opentable("Artikel hinzuf&uuml;gen");
       <td height="28"> 
         <select class="textbox" name="nkategorie">
           <?
-		$result = mysql_query("select * from ".$PREFIX."_Untergruppen order by name");
-		while ($row = mysql_fetch_object($result))
+		$result = mysqli_query($conn_id, "select * from ".$PREFIX."_Untergruppen order by name");
+		while ($row = mysqli_fetch_object($result))
 			{
 			
 				$name      = $row->name;
@@ -103,8 +103,8 @@ opentable("Artikel hinzuf&uuml;gen");
 				
 				$name4 = "";
 				
-				$result1 = mysql_query("select name from ".$PREFIX."_Hauptgruppen where id = '$main_kat1'");
-				while ($row1 = mysql_fetch_object($result1))
+				$result1 = mysqli_query($conn_id, "select name from ".$PREFIX."_Hauptgruppen where id = '$main_kat1'");
+				while ($row1 = mysqli_fetch_object($result1))
 					{
 					
 						$name4   = $row1->name;

@@ -33,8 +33,8 @@ if (!iSUPERADMIN){ redirect("../../../index.php"); };
 include ("../xxxxconfig.php");
 include ("../templates.php");
 
-$conn_id = mysql_connect($HOST,$ID,$PW);
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 
 if (!isset($_POST['header'])) $_POST['header'] = "";
 if (!isset($POST['header_img'])) $_POST['header_img'] = "";
@@ -43,80 +43,80 @@ if (!isset($_GET['typ'])) $_GET['typ'] = "";
 
 if ($_GET['typ'] == "edit") 
 	{
-		$conn_id = mysql_connect($HOST,$ID,$PW);
-		mysql_select_db($DB,$conn_id);
+		$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+		//mysql_select_db($DB,$conn_id);
 
 		$name = "unternehmen";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['unternehmen'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['unternehmen'])."' where name = '$name'");
 		
 		$name = "footer";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['footer'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['footer'])."' where name = '$name'");
 		
 		$name = "homepage";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['homepage'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['homepage'])."' where name = '$name'");
 		
 		$name = "mailadresse";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['mailadresse'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['mailadresse'])."' where name = '$name'");
 		
 		$name = "title1";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['title1'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['title1'])."' where name = '$name'");
 		
 		$name = "title2";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['title2'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['title2'])."' where name = '$name'");
 		
 		$name = "mindestbestellpreis";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['mindestbestellpreis'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['mindestbestellpreis'])."' where name = '$name'");
 		
 		$name = "mindermengenaufschlag";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['mindermengenaufschlag'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['mindermengenaufschlag'])."' where name = '$name'");
 		
 		$name = "shopzeit";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['shopzeit'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['shopzeit'])."' where name = '$name'");
 		
 		$name = "mailheader";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['mailheader'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['mailheader'])."' where name = '$name'");
 		
 		$name = "mailfooter";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['mailfooter'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['mailfooter'])."' where name = '$name'");
 		
 		$name = "shopmeldung";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['shopmeldung'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['shopmeldung'])."' where name = '$name'");
 		
 		$name = "agbs";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['agbs'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['agbs'])."' where name = '$name'");
 		
 		$name = "mehrwertsteuer";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['mehrwertsteuer'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['mehrwertsteuer'])."' where name = '$name'");
 		
 		$name = "header";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['header'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['header'])."' where name = '$name'");
 		
 		$name = "header_text";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['header_text'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['header_text'])."' where name = '$name'");
 		
 		$name = "header_img";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['header_img'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['header_img'])."' where name = '$name'");
 		
 		$name = "status_green";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['status_green'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['status_green'])."' where name = '$name'");
 		
 		$name = "status_yellow";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['status_yellow'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['status_yellow'])."' where name = '$name'");
 		
 		$name = "status_red";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['status_red'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['status_red'])."' where name = '$name'");
 		
 		$name = "waehrung";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['waehrung'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['waehrung'])."' where name = '$name'");
 	
 		$name = "variante_name1";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['variante_name1'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['variante_name1'])."' where name = '$name'");
 	
 		$name = "variante_name2";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['variante_name2'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['variante_name2'])."' where name = '$name'");
 
 		$name = "mailadresse_mail";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='".mysql_real_escape_string($_POST['mailadresse_mail'])."' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='".mysqli_real_escape_string($conn_id, $_POST['mailadresse_mail'])."' where name = '$name'");
 		if (is_uploaded_file($_FILES['neu_header_img']['tmp_name'])) 
 			{
 

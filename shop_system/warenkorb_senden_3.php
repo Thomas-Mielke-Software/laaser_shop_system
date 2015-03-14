@@ -16,8 +16,8 @@
 | angepasst f¸r Fusion 7 von Thomas Mielke
 +-----------------------------------------------------*/
 
-error_reporting(E_ALL);
-ini_set("display_errors", 1); 
+//error_reporting(E_ALL);
+//ini_set("display_errors", 1); 
 // search/replace: (\$_GET\['[a-zA-Z0-9_]*'\]) -> mysql_real_escape_string\($1\)
 // search/replace: (\$_POST\['[a-zA-Z0-9_]*'\]) -> mysql_real_escape_string\($1\)
 // search/replace: \{(mysql_real_escape_string\(\$_[A-Z][A-Z][A-Z][A-Z]?\['[a-zA-Z0-9_]*'\]\))\} -> ".$1."
@@ -36,8 +36,8 @@ if (!$_GET['nr'])
 	}
 
 
-$conn_id = mysql_connect($HOST,$ID,$PW);
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 	
 if (!isset($bestellung)) $bestellung = "";
 if (!isset($bestellpreis)) $bestellpreis = "";
@@ -105,9 +105,9 @@ if ($shop == "enable")
 		$bestellung .= "\r\n";
 		$bestellung .= "\r\n";
 
-		$result = mysql_query("select * from ".$PREFIX."_Warenkorb where nr = '".mysql_real_escape_string($_GET['nr'])."' order by name");
+		$result = mysqli_query($conn_id, "select * from ".$PREFIX."_Warenkorb where nr = '".mysqli_real_escape_string($conn_id, $_GET['nr'])."' order by name");
 		
-		while ($row = mysql_fetch_object($result))
+		while ($row = mysqli_fetch_object($result))
 			{
 
 				$artikelnummer 	= $row->artikelnummer;
@@ -147,9 +147,9 @@ if ($shop == "enable")
 		$mehrwertbetrag  = $mehrwertbetrag * $mehrwertsteuer;
 		$mehrwertbetrag  = number_format($mehrwertbetrag,2,",",".");
 	
-		$result = mysql_query("select beschreibung from ".$PREFIX."_Zahlarten where art = '{$_POST['zahlungsart']}'"); 
+		$result = mysqli_query($conn_id, "select beschreibung from ".$PREFIX."_Zahlarten where art = '{$_POST['zahlungsart']}'"); 
 		
-		while ($row = mysql_fetch_object($result))
+		while ($row = mysqli_fetch_object($result))
 			{
 			
 				$zahlhinweise = $row->beschreibung;
@@ -201,7 +201,7 @@ if ($shop == "enable")
 	
 		// Zahlungsart
 		
-		$zahlung .= "Zahlungsart: ".mysql_real_escape_string($_POST['zahlungsart']);
+		$zahlung .= "Zahlungsart: ".mysqli_real_escape_string($conn_id, $_POST['zahlungsart']);
 		
 		if ($zahlhinweise) 
 			{
@@ -211,23 +211,23 @@ if ($shop == "enable")
 			}
 		
 			
-		$zahlung1 .= "Zahlungsart: ".mysql_real_escape_string($_POST['zahlungsart']);
+		$zahlung1 .= "Zahlungsart: ".mysqli_real_escape_string($conn_id, $_POST['zahlungsart']);
 		
 		if ($_POST['zahlungsart'] == "Lastschrift")
 			{
 			
 				$zahlung1 .= "\r\n";
 				$zahlung1 .= "\r\n";
-				$zahlung1 .= "Kontoinhaber: ".mysql_real_escape_string($_POST['kontoinhaber']);
+				$zahlung1 .= "Kontoinhaber: ".mysqli_real_escape_string($conn_id, $_POST['kontoinhaber']);
 
 				$zahlung1 .= "\r\n";
-				$zahlung1 .= "Kontonummer: ".mysql_real_escape_string($_POST['kontonr']);
+				$zahlung1 .= "Kontonummer: ".mysqli_real_escape_string($conn_id, $_POST['kontonr']);
 
 				$zahlung1 .= "\r\n";
-				$zahlung1 .= "Bankleitzahl: ".mysql_real_escape_string($_POST['blz']);
+				$zahlung1 .= "Bankleitzahl: ".mysqli_real_escape_string($conn_id, $_POST['blz']);
 
 				$zahlung1 .= "\r\n";
-				$zahlung1 .= "Kreditinstitut: ".mysql_real_escape_string($_POST['bank']);
+				$zahlung1 .= "Kreditinstitut: ".mysqli_real_escape_string($conn_id, $_POST['bank']);
 				
 			}
 			
@@ -241,19 +241,19 @@ if ($shop == "enable")
 				$adressen .= "\r\n";
 				$adressen .= "\r\n";
 				$adressen .= "Name: ";
-				$adressen .= mysql_real_escape_string($_POST['name']);
+				$adressen .= mysqli_real_escape_string($conn_id, $_POST['name']);
 				$adressen .= "\r\n";
 				$adressen .= "Straﬂe und Nr.: ";
-				$adressen .= mysql_real_escape_string($_POST['strasse']);
+				$adressen .= mysqli_real_escape_string($conn_id, $_POST['strasse']);
 				$adressen .= "\r\n";
 				$adressen .= "Plz und Ort: ";
-				$adressen .= mysql_real_escape_string($_POST['plz'])." ".mysql_real_escape_string($_POST['ort']);
+				$adressen .= mysqli_real_escape_string($conn_id, $_POST['plz'])." ".mysqli_real_escape_string($conn_id, $_POST['ort']);
 				$adressen .= "\r\n";
 				$adressen .= "Telefon: ";
-				$adressen .= mysql_real_escape_string($_POST['telefon']);
+				$adressen .= mysqli_real_escape_string($conn_id, $_POST['telefon']);
 				$adressen .= "\r\n";
 				$adressen .= "E-Mail: ";
-				$adressen .= mysql_real_escape_string($_POST['email']);
+				$adressen .= mysqli_real_escape_string($conn_id, $_POST['email']);
 				$adressen .= "\r\n";
 				
 			}
@@ -264,19 +264,19 @@ if ($shop == "enable")
 				$adressen .= "\r\n";
 				$adressen .= "\r\n";
 				$adressen .= "Name: ";
-				$adressen .= mysql_real_escape_string($_POST['name']);
+				$adressen .= mysqli_real_escape_string($conn_id, $_POST['name']);
 				$adressen .= "\r\n";
 				$adressen .= "Straﬂe und Nr.: ";
-				$adressen .= mysql_real_escape_string($_POST['strasse']);
+				$adressen .= mysqli_real_escape_string($conn_id, $_POST['strasse']);
 				$adressen .= "\r\n";
 				$adressen .= "Plz / Ort: ";
-				$adressen .= mysql_real_escape_string($_POST['plz'])." ".mysql_real_escape_string($_POST['ort']);
+				$adressen .= mysqli_real_escape_string($conn_id, $_POST['plz'])." ".mysqli_real_escape_string($conn_id, $_POST['ort']);
 				$adressen .= "\r\n";
 				$adressen .= "Telefon: ";
-				$adressen .= mysql_real_escape_string($_POST['telefon']);
+				$adressen .= mysqli_real_escape_string($conn_id, $_POST['telefon']);
 				$adressen .= "\r\n";
 				$adressen .= "E-Mail: ";
-				$adressen .= mysql_real_escape_string($_POST['email']);
+				$adressen .= mysqli_real_escape_string($conn_id, $_POST['email']);
 				$adressen .= "\r\n";
 				$adressen .= "\r\n";
 				$adressen .= "\r\n";
@@ -284,13 +284,13 @@ if ($shop == "enable")
 				$adressen .= "\r\n";
 				$adressen .= "\r\n";
 				$adressen .= "Name: ";
-				$adressen .= mysql_real_escape_string($_POST['lief_name']);
+				$adressen .= mysqli_real_escape_string($conn_id, $_POST['lief_name']);
 				$adressen .= "\r\n";
 				$adressen .= "Straﬂe / Nr.: ";
-				$adressen .= mysql_real_escape_string($_POST['lief_strasse']);
+				$adressen .= mysqli_real_escape_string($conn_id, $_POST['lief_strasse']);
 				$adressen .= "\r\n";
 				$adressen .= "Plz / Ort: ";
-				$adressen .= mysql_real_escape_string($_POST['lief_plz'])." ".mysql_real_escape_string($_POST['lief_ort']);
+				$adressen .= mysqli_real_escape_string($conn_id, $_POST['lief_plz'])." ".mysqli_real_escape_string($conn_id, $_POST['lief_ort']);
 				$adressen .= "\r\n";
 				
 			}
@@ -429,13 +429,13 @@ $mailfooter
 		$produkte .= "\r\n";
 		$produkte .= $zahlung1;
 	
-		mysql_query("insert into ".$PREFIX."_Bestellungen (datum,name,email,telefon,r_adresse,l_adresse,produkte) VALUES ('$datum','".mysql_real_escape_string($_POST['name'])."','".mysql_real_escape_string($_POST['email'])."','".mysql_real_escape_string($_POST['telefon'])."','".mysql_real_escape_string($r_adresse)."','".mysql_real_escape_string($l_adresse)."','".mysql_real_escape_string($produkte)."')"); 
+		mysqli_query($conn_id, "insert into ".$PREFIX."_Bestellungen (datum,name,email,telefon,r_adresse,l_adresse,produkte) VALUES ('$datum','".mysqli_real_escape_string($conn_id, $_POST['name'])."','".mysqli_real_escape_string($conn_id, $_POST['email'])."','".mysqli_real_escape_string($conn_id, $_POST['telefon'])."','".mysqli_real_escape_string($conn_id, $r_adresse)."','".mysqli_real_escape_string($conn_id, $l_adresse)."','".mysqli_real_escape_string($conn_id, $produkte)."')"); 
 	
 
 		// Warenkorb lˆschen
 	
-		mysql_query("delete from ".$PREFIX."_Session where id= '".mysql_real_escape_string($_GET['nr'])."'");
-		mysql_query("delete from ".$PREFIX."_Warenkorb where nr= '".mysql_real_escape_string($_GET['nr'])."'");
+		mysqli_query($conn_id, "delete from ".$PREFIX."_Session where id= '".mysqli_real_escape_string($conn_id, $_GET['nr'])."'");
+		mysqli_query($conn_id, "delete from ".$PREFIX."_Warenkorb where nr= '".mysqli_real_escape_string($conn_id, $_GET['nr'])."'");
 	
 		// Weiterleitung mit Danksagung
 	

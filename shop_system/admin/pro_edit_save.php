@@ -29,22 +29,22 @@ elseif (!$_POST['neu_preis']): $action = "error";
 else: $action = "erfolg";
 endif;
 
-$conn_id = mysql_connect($HOST,$ID,$PW);
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 
 if ($action == "erfolg") {
 
 	if ($_POST['bild'] == "ok" AND !is_uploaded_file($_FILES['neu_bild']['tmp_name'])) 
 		{
 
-			mysql_query("update ".$PREFIX."_Artikel set kategorie ='".mysql_real_escape_string($_POST['neu_kategorie'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set artikelnummer ='".mysql_real_escape_string($_POST['neu_artikelnummer'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set name ='".mysql_real_escape_string($_POST['neu_name'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set beschreibung ='".mysql_real_escape_string($_POST['neu_beschreibung'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set preis ='".mysql_real_escape_string($_POST['neu_preis'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set variante1 ='".mysql_real_escape_string($_POST['neu_variante1'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set variante2 ='".mysql_real_escape_string($_POST['neu_variante2'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set status ='".mysql_real_escape_string($_POST['neu_status'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set kategorie ='".mysqli_real_escape_string($conn_id, $_POST['neu_kategorie'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set artikelnummer ='".mysqli_real_escape_string($conn_id, $_POST['neu_artikelnummer'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set name ='".mysqli_real_escape_string($conn_id, $_POST['neu_name'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set beschreibung ='".mysqli_real_escape_string($conn_id, $_POST['neu_beschreibung'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set preis ='".mysqli_real_escape_string($conn_id, $_POST['neu_preis'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set variante1 ='".mysqli_real_escape_string($conn_id, $_POST['neu_variante1'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set variante2 ='".mysqli_real_escape_string($conn_id, $_POST['neu_variante2'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set status ='".mysqli_real_escape_string($conn_id, $_POST['neu_status'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
 		
 		}
 
@@ -52,14 +52,14 @@ if ($action == "erfolg") {
 	if ($_POST['bild'] != "ok" AND !is_uploaded_file($_FILES['neu_bild']['tmp_name'])) 
 		{
 	
-			mysql_query("update ".$PREFIX."_Artikel set kategorie ='".mysql_real_escape_string($_POST['neu_kategorie'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set artikelnummer ='".mysql_real_escape_string($_POST['neu_artikelnummer'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set name ='".mysql_real_escape_string($_POST['neu_name'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set beschreibung ='".mysql_real_escape_string($_POST['neu_beschreibung'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set preis ='".mysql_real_escape_string($_POST['neu_preis'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set variante1 ='".mysql_real_escape_string($_POST['neu_variante1'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set variante2 ='".mysql_real_escape_string($_POST['neu_variante2'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set status ='".mysql_real_escape_string($_POST['neu_status'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set kategorie ='".mysqli_real_escape_string($conn_id, $_POST['neu_kategorie'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set artikelnummer ='".mysqli_real_escape_string($conn_id, $_POST['neu_artikelnummer'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set name ='".mysqli_real_escape_string($conn_id, $_POST['neu_name'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set beschreibung ='".mysqli_real_escape_string($conn_id, $_POST['neu_beschreibung'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set preis ='".mysqli_real_escape_string($conn_id, $_POST['neu_preis'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set variante1 ='".mysqli_real_escape_string($conn_id, $_POST['neu_variante1'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set variante2 ='".mysqli_real_escape_string($conn_id, $_POST['neu_variante2'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set status ='".mysqli_real_escape_string($conn_id, $_POST['neu_status'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
 		
 		}
 
@@ -67,16 +67,16 @@ if ($action == "erfolg") {
 	if ($_POST['bild'] == "ok" AND is_uploaded_file($_FILES['neu_bild']['tmp_name'])) 
 		{
 
-			mysql_query("update ".$PREFIX."_Artikel set kategorie ='".mysql_real_escape_string($_POST['neu_kategorie'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set artikelnummer ='".mysql_real_escape_string($_POST['neu_artikelnummer'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set name ='".mysql_real_escape_string($_POST['neu_name'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set beschreibung ='".mysql_real_escape_string($_POST['neu_beschreibung'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set preis ='".mysql_real_escape_string($_POST['neu_preis'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set variante1 ='".mysql_real_escape_string($_POST['neu_variante1'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set variante2 ='".mysql_real_escape_string($_POST['neu_variante2'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set status ='".mysql_real_escape_string($_POST['neu_status'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set kategorie ='".mysqli_real_escape_string($conn_id, $_POST['neu_kategorie'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set artikelnummer ='".mysqli_real_escape_string($conn_id, $_POST['neu_artikelnummer'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set name ='".mysqli_real_escape_string($conn_id, $_POST['neu_name'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set beschreibung ='".mysqli_real_escape_string($conn_id, $_POST['neu_beschreibung'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set preis ='".mysqli_real_escape_string($conn_id, $_POST['neu_preis'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set variante1 ='".mysqli_real_escape_string($conn_id, $_POST['neu_variante1'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set variante2 ='".mysqli_real_escape_string($conn_id, $_POST['neu_variante2'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set status ='".mysqli_real_escape_string($conn_id, $_POST['neu_status'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
 
-			$fotoname = "".mysql_real_escape_string($_POST['id']).".jpg";		
+			$fotoname = "".mysqli_real_escape_string($conn_id, $_POST['id']).".jpg";		
 
 			if ($FTP == "1")
 
@@ -111,15 +111,15 @@ if ($action == "erfolg") {
 		{
 
 			$bild = "ok";
-			mysql_query("update ".$PREFIX."_Artikel set kategorie ='".mysql_real_escape_string($_POST['neu_kategorie'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set artikelnummer ='".mysql_real_escape_string($_POST['neu_artikelnummer'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set name ='".mysql_real_escape_string($_POST['neu_name'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set beschreibung ='".mysql_real_escape_string($_POST['neu_beschreibung'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set preis ='".mysql_real_escape_string($_POST['neu_preis'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set variante1 ='".mysql_real_escape_string($_POST['neu_variante1'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set variante2 ='".mysql_real_escape_string($_POST['neu_variante2'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set bild ='$bild' where id = '".mysql_real_escape_string($_POST['id'])."'");
-			mysql_query("update ".$PREFIX."_Artikel set status ='".mysql_real_escape_string($_POST['neu_status'])."' where id = '".mysql_real_escape_string($_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set kategorie ='".mysqli_real_escape_string($conn_id, $_POST['neu_kategorie'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set artikelnummer ='".mysqli_real_escape_string($conn_id, $_POST['neu_artikelnummer'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set name ='".mysqli_real_escape_string($conn_id, $_POST['neu_name'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set beschreibung ='".mysqli_real_escape_string($conn_id, $_POST['neu_beschreibung'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set preis ='".mysqli_real_escape_string($conn_id, $_POST['neu_preis'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set variante1 ='".mysqli_real_escape_string($conn_id, $_POST['neu_variante1'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set variante2 ='".mysqli_real_escape_string($conn_id, $_POST['neu_variante2'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set bild ='$bild' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
+			mysqli_query($conn_id, "update ".$PREFIX."_Artikel set status ='".mysqli_real_escape_string($conn_id, $_POST['neu_status'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
 		
 		
 			$fotoname = "{$_POST['id']}.jpg";

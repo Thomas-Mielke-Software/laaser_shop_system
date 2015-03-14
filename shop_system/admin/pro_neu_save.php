@@ -36,16 +36,16 @@ if ($action == "erfolg")
 
 		if (!isset($bild1)) $bild1 = "";
 	
-		$conn_id = mysql_connect($HOST,$ID,$PW);
-		mysql_select_db($DB,$conn_id);
+		$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+		//mysql_select_db($DB,$conn_id);
 		
-		mysql_query("insert into ".$PREFIX."_Artikel (kategorie,artikelnummer,name,beschreibung,preis,bild,variante1,variante2,status) VALUES ('".mysql_real_escape_string($_POST['nkategorie'])."','".mysql_real_escape_string($_POST['artikelnummer'])."','".mysql_real_escape_string($_POST['name'])."','".mysql_real_escape_string($_POST['beschreibung'])."','".mysql_real_escape_string($_POST['preis'])."','$bild1','".mysql_real_escape_string($_POST['variante1'])."','".mysql_real_escape_string($_POST['variante2'])."','".mysql_real_escape_string($_POST['status'])."')"); 
+		mysqli_query($conn_id, "insert into ".$PREFIX."_Artikel (kategorie,artikelnummer,name,beschreibung,preis,bild,variante1,variante2,status) VALUES ('".mysqli_real_escape_string($conn_id, $_POST['nkategorie'])."','".mysqli_real_escape_string($conn_id, $_POST['artikelnummer'])."','".mysqli_real_escape_string($conn_id, $_POST['name'])."','".mysqli_real_escape_string($conn_id, $_POST['beschreibung'])."','".mysqli_real_escape_string($conn_id, $_POST['preis'])."','$bild1','".mysqli_real_escape_string($conn_id, $_POST['variante1'])."','".mysqli_real_escape_string($conn_id, $_POST['variante2'])."','".mysqli_real_escape_string($conn_id, $_POST['status'])."')"); 
 	
 		if ($bild1 == "ok") 
 			{
 	
-				$result = mysql_query("select id from ".$PREFIX."_Artikel where name = '".mysql_real_escape_string($_POST['name'])."'"); 
-				while ($row = mysql_fetch_object($result))
+				$result = mysqli_query($conn_id, "select id from ".$PREFIX."_Artikel where name = '".mysqli_real_escape_string($conn_id, $_POST['name'])."'"); 
+				while ($row = mysqli_fetch_object($result))
 					{
 					
 					$id     = $row->id;

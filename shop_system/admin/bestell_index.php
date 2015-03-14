@@ -35,10 +35,10 @@ if (!isset($action )) $action = "";
 if ($_GET['typ'] == "delete") 
 	{
 
-		$conn_id = mysql_connect($HOST,$ID,$PW);
-		mysql_select_db($DB,$conn_id);
+		$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+		//mysql_select_db($DB,$conn_id);
 		
-		mysql_query("delete from ".$PREFIX."_Bestellungen where nr= '".mysql_real_escape_string($_GET['nr'])."'");
+		mysqli_query($conn_id, "delete from ".$PREFIX."_Bestellungen where nr= '".mysqli_real_escape_string($conn_id, $_GET['nr'])."'");
 		
 		mysql_close($conn_id);
 	
@@ -59,12 +59,12 @@ opentable("Offene Bestellungen");
       Bestellungen</font></b></td>
   </tr>
   <? 
-  $conn_id = mysql_connect($HOST,$ID,$PW);
-  mysql_select_db($DB,$conn_id);
+  $conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+  //mysql_select_db($DB,$conn_id);
 
-  $result = mysql_query("select * from ".$PREFIX."_Bestellungen where nr = '".mysql_real_escape_string($_GET['nr'])."'");
+  $result = mysqli_query($conn_id, "select * from ".$PREFIX."_Bestellungen where nr = '".mysqli_real_escape_string($conn_id, $_GET['nr'])."'");
 
-  while ($row = mysql_fetch_object($result))
+  while ($row = mysqli_fetch_object($result))
   	{
 	
 		$datum     = $row->datum;
@@ -155,7 +155,7 @@ opentable("Offene Bestellungen");
     <td width="22" height="25">&nbsp;</td>
     <td height="25" valign="top" width="160">&nbsp;</td>
     <td height="25" valign="top" width="518"> 
-      <div align="left"><a href="bestell_index.php?typ=delete&nr=<? echo mysql_real_escape_string($_GET['nr']) ?>"><img src="loeschen.gif" width="80" height="17" border="0"></a></div>
+      <div align="left"><a href="bestell_index.php?typ=delete&nr=<? echo mysqli_real_escape_string($conn_id, $_GET['nr']) ?>"><img src="loeschen.gif" width="80" height="17" border="0"></a></div>
     </td>
   </tr>
   <tr> 
@@ -212,12 +212,12 @@ else
   </tr> 
   
   <? 
-  $conn_id = mysql_connect($HOST,$ID,$PW);
-  mysql_select_db($DB,$conn_id);
+  $conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+  //mysql_select_db($DB,$conn_id);
 
-  $result = mysql_query("select nr , datum , name from ".$PREFIX."_Bestellungen order by nr desc");
+  $result = mysqli_query($conn_id, "select nr , datum , name from ".$PREFIX."_Bestellungen order by nr desc");
 
-  while ($row = mysql_fetch_object($result))
+  while ($row = mysqli_fetch_object($result))
   	{
 	
 		$nr        = $row->nr;

@@ -36,33 +36,33 @@ if (!isset($_GET['typ']))			$_GET['typ'] = "";
 if (!isset($_GET['table_align']))	$_GET['table_align'] = "";
 
 $get_vars						= array();
-$get_vars['typ']				= htmlentities(mysql_real_escape_string($_GET['typ']));
-$get_vars['table_align']		= htmlentities(mysql_real_escape_string($_GET['table_align']));
+$get_vars['typ']				= htmlentities(mysqli_real_escape_string($conn_id, $_GET['typ']));
+$get_vars['table_align']		= htmlentities(mysqli_real_escape_string($conn_id, $_GET['table_align']));
 
 $post_vars						= array();
-$post_vars['bgcolor']			= htmlentities(mysql_real_escape_string($_POST['bgcolor']));
-$post_vars['table_color1']		= htmlentities(mysql_real_escape_string($_POST['table_color1']));
-$post_vars['table_color2']		= htmlentities(mysql_real_escape_string($_POST['table_color2']));
-$post_vars['fontcolor_title2']	= htmlentities(mysql_real_escape_string($_POST['fontcolor_title2']));
-$post_vars['fontcolor_title3']	= htmlentities(mysql_real_escape_string($_POST['fontcolor_title3']));
-$post_vars['footer_color']		= htmlentities(mysql_real_escape_string($_POST['footer_color']));
-$post_vars['error_color']		= htmlentities(mysql_real_escape_string($_POST['error_color']));
-$post_vars['erfolg_color']		= htmlentities(mysql_real_escape_string($_POST['erfolg_color']));
-$post_vars['text']				= htmlentities(mysql_real_escape_string($_POST['text']));
-$post_vars['fontsize_title2']	= htmlentities(mysql_real_escape_string($_POST['fontsize_title2']));
-$post_vars['fontsize_title3']	= htmlentities(mysql_real_escape_string($_POST['fontsize_title3']));
-$post_vars['footer_size']		= htmlentities(mysql_real_escape_string($_POST['footer_size']));
-$post_vars['fontsize_normal']	= htmlentities(mysql_real_escape_string($_POST['fontsize_normal']));
-$post_vars['link']				= htmlentities(mysql_real_escape_string($_POST['link']));
-$post_vars['alink']				= htmlentities(mysql_real_escape_string($_POST['alink']));
-$post_vars['vlink']				= htmlentities(mysql_real_escape_string($_POST['vlink']));
-$post_vars['style1']			= htmlentities(mysql_real_escape_string($_POST['style1']));
-$post_vars['style2']			= htmlentities(mysql_real_escape_string($_POST['style2']));
-$post_vars['fontcolor_header']	= htmlentities(mysql_real_escape_string($_POST['fontcolor_header']));
-$post_vars['fontsize_header']	= htmlentities(mysql_real_escape_string($_POST['fontsize_header']));
-$post_vars['table_align']		= htmlentities(mysql_real_escape_string($_POST['table_align']));
-$post_vars['table_width']		= htmlentities(mysql_real_escape_string($_POST['table_width']));
-$post_vars['ds_anzahl']			= htmlentities(mysql_real_escape_string($_POST['ds_anzahl']));
+$post_vars['bgcolor']			= htmlentities(mysqli_real_escape_string($conn_id, $_POST['bgcolor']));
+$post_vars['table_color1']		= htmlentities(mysqli_real_escape_string($conn_id, $_POST['table_color1']));
+$post_vars['table_color2']		= htmlentities(mysqli_real_escape_string($conn_id, $_POST['table_color2']));
+$post_vars['fontcolor_title2']	= htmlentities(mysqli_real_escape_string($conn_id, $_POST['fontcolor_title2']));
+$post_vars['fontcolor_title3']	= htmlentities(mysqli_real_escape_string($conn_id, $_POST['fontcolor_title3']));
+$post_vars['footer_color']		= htmlentities(mysqli_real_escape_string($conn_id, $_POST['footer_color']));
+$post_vars['error_color']		= htmlentities(mysqli_real_escape_string($conn_id, $_POST['error_color']));
+$post_vars['erfolg_color']		= htmlentities(mysqli_real_escape_string($conn_id, $_POST['erfolg_color']));
+$post_vars['text']				= htmlentities(mysqli_real_escape_string($conn_id, $_POST['text']));
+$post_vars['fontsize_title2']	= htmlentities(mysqli_real_escape_string($conn_id, $_POST['fontsize_title2']));
+$post_vars['fontsize_title3']	= htmlentities(mysqli_real_escape_string($conn_id, $_POST['fontsize_title3']));
+$post_vars['footer_size']		= htmlentities(mysqli_real_escape_string($conn_id, $_POST['footer_size']));
+$post_vars['fontsize_normal']	= htmlentities(mysqli_real_escape_string($conn_id, $_POST['fontsize_normal']));
+$post_vars['link']				= htmlentities(mysqli_real_escape_string($conn_id, $_POST['link']));
+$post_vars['alink']				= htmlentities(mysqli_real_escape_string($conn_id, $_POST['alink']));
+$post_vars['vlink']				= htmlentities(mysqli_real_escape_string($conn_id, $_POST['vlink']));
+$post_vars['style1']			= htmlentities(mysqli_real_escape_string($conn_id, $_POST['style1']));
+$post_vars['style2']			= htmlentities(mysqli_real_escape_string($conn_id, $_POST['style2']));
+$post_vars['fontcolor_header']	= htmlentities(mysqli_real_escape_string($conn_id, $_POST['fontcolor_header']));
+$post_vars['fontsize_header']	= htmlentities(mysqli_real_escape_string($conn_id, $_POST['fontsize_header']));
+$post_vars['table_align']		= htmlentities(mysqli_real_escape_string($conn_id, $_POST['table_align']));
+$post_vars['table_width']		= htmlentities(mysqli_real_escape_string($conn_id, $_POST['table_width']));
+$post_vars['ds_anzahl']			= htmlentities(mysqli_real_escape_string($conn_id, $_POST['ds_anzahl']));
 
 
 // Programm-Code
@@ -70,77 +70,77 @@ $post_vars['ds_anzahl']			= htmlentities(mysql_real_escape_string($_POST['ds_anz
 if ($get_vars['typ'] == "edit") 
 	{
 
-		$conn_id = mysql_connect($HOST,$ID,$PW);
-		mysql_select_db($DB,$conn_id);
+		$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+		//mysql_select_db($DB,$conn_id);
 		
 		$name = "bgcolor";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['bgcolor']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['bgcolor']}' where name = '$name'");
 		
 		$name = "table_color1";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['table_color1']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['table_color1']}' where name = '$name'");
 		
 		$name = "table_color2";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['table_color2']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['table_color2']}' where name = '$name'");
 		
 		$name = "fontcolor_title2";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['fontcolor_title2']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['fontcolor_title2']}' where name = '$name'");
 		
 		$name = "fontcolor_title3";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['fontcolor_title3']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['fontcolor_title3']}' where name = '$name'");
 		
 		$name = "footer_color";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['footer_color']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['footer_color']}' where name = '$name'");
 		
 		$name = "error_color";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['error_color']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['error_color']}' where name = '$name'");
 		
 		$name = "erfolg_color";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['erfolg_color']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['erfolg_color']}' where name = '$name'");
 		
 		$name = "text";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['text']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['text']}' where name = '$name'");
 		
 		$name = "fontsize_title2";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['fontsize_title2']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['fontsize_title2']}' where name = '$name'");
 		
 		$name = "fontsize_title3";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['fontsize_title3']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['fontsize_title3']}' where name = '$name'");
 		
 		$name = "footer_size";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['footer_size']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['footer_size']}' where name = '$name'");
 		
 		$name = "fontsize_normal";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['fontsize_normal']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['fontsize_normal']}' where name = '$name'");
 		
 		$name = "link";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['link']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['link']}' where name = '$name'");
 		
 		$name = "alink";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['alink']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['alink']}' where name = '$name'");
 		
 		$name = "vlink";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['vlink']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['vlink']}' where name = '$name'");
 		
 		$name = "style1";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['style1']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['style1']}' where name = '$name'");
 		
 		$name = "style2";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['style2']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['style2']}' where name = '$name'");
 		
 		$name = "fontcolor_header";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['fontcolor_header']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['fontcolor_header']}' where name = '$name'");
 		
 		$name = "fontsize_header";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['fontsize_header']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['fontsize_header']}' where name = '$name'");
 		
 		$name = "table_align";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['table_align']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['table_align']}' where name = '$name'");
 		
 		$name = "table_width";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['table_width']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['table_width']}' where name = '$name'");
 
 		$name = "ds_anzahl";
-		mysql_query("update ".$PREFIX."_Templates set inhalt ='{$post_vars['ds_anzahl']}' where name = '$name'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['ds_anzahl']}' where name = '$name'");
 		
 		mysql_close($conn_id);
 

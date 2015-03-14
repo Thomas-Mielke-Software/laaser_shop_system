@@ -16,6 +16,8 @@
 | angepasst für Fusion 7 von Thomas Mielke
 +-----------------------------------------------------*/
 
+//error_reporting(E_ALL);
+//ini_set("display_errors", 1); 
 require_once "../../maincore.php";
 require_once THEMES."templates/header.php";
 
@@ -23,8 +25,8 @@ require_once THEMES."templates/header.php";
 include ("xxxxconfig.php");
 require_once ("templates.php");
 
-$conn_id = mysql_connect($HOST,$ID,$PW);
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 
 if ($_GET['main_kat'] != '' && !IsNum($_GET['main_kat'])) die ("ung&uuml;ltiger URL-Parameter");
 
@@ -51,8 +53,8 @@ if ($header == "ok") {
   <tr> 
     <td height="50" bgcolor="<? echo $TABLE_COLOR2 ?>" colspan="0"> 
       <?
-    $result = mysql_query("select id from ".$PREFIX."_Hauptgruppen order by anzeige");
-    $num    = mysql_numrows($result);
+    $result = mysqli_query($conn_id, "select id from ".$PREFIX."_Hauptgruppen order by anzeige");
+    $num    = mysqli_num_rows($result);
     if ($num) 
 		{
     ?>
@@ -64,9 +66,9 @@ if ($header == "ok") {
         <tr> 
           <td> 
             <?
-			$result = mysql_query("select id , name from ".$PREFIX."_Hauptgruppen order by anzeige");
+			$result = mysqli_query($conn_id, "select id , name from ".$PREFIX."_Hauptgruppen order by anzeige");
 			
-			while ($row = mysql_fetch_object($result))
+			while ($row = mysqli_fetch_object($result))
 				{
 				
 					$id        = $row->id;
@@ -78,19 +80,45 @@ if ($header == "ok") {
 					
 						{
 					
-							$result1 = mysql_query("select id , main_kat , name from ".$PREFIX."_Untergruppen where main_kat = ".mysql_real_escape_string($_GET['main_kat'])." order by anzeige");
-							while ($row1 = mysql_fetch_object($result1))
+							$result1 = mysqli_query($conn_id, "select id , main_kat , name from ".$PREFIX."_Untergruppen where main_kat = ".mysqli_real_escape_string($conn_id, $_GET['main_kat'])." order by anzeige");
+							while ($row1 = mysqli_fetch_object($result1))
 								{
 				
 									 $id1       = $row1->id;
 									 $main_kat1 = $row1->main_kat;
 									 $name1     = $row1->name;
+									 
+									 if ($main_kat1 == $id)
+									 {
+									   $result2 = mysqli_query($conn_id, "select id , name from ".$PREFIX."_Artikel where kategorie = $id1 order by artikelnummer");	
+									   
+									   $num2    = mysql_numrows($result2);
+									   if ($num2)
+									   {
+									     echo  "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size='$FONTSIZE_NORMAL'><a href='show.php?main_kat=$id&kategorie=$id1&nr={$_GET['nr']}'>$name1</font></a><br>";	
+									     echo  "<table><tr><td align='left'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>";
+									   }
 									
-									 if ($main_kat1 == $id)	echo  "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size='$FONTSIZE_NORMAL'><a href='show.php?main_kat=$id&kategorie=$id1&nr={$_GET['nr']}'>$name1</a></font><br>";	
-
-								}
-					
-					
+									   $count = 0;
+									   
+									   while ($row2 = mysqli_fetch_object($result2))										
+									   {
+									     $id2       = $row2->id;
+									   									   
+										 echo  "<td align='left'><a href='show.php?main_kat=$id&kategorie=$id1&nr={$_GET['nr']}#$id2'><img src='images/artikel/$id2.jpg' width='100' border='0'></a></td>";
+										 
+										 $count++;
+										 if ($count%7 == 0)							   
+										   echo "</tr><tr><td align='left'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>";
+									   }									   
+									   
+									   if ($num2)
+									   {
+										 echo  "</td></tr></table>";
+									     echo  "<br>";
+									   }
+									 }
+								}	
 						}
 				}
 			?>
@@ -113,9 +141,9 @@ if ($header == "ok") {
         <tr> 
           <td> 
             <?
-			$result = mysql_query("select id , name from ".$PREFIX."_Untergruppen order by anzeige");
+			$result = mysqli_query($conn_id, "select id , name from ".$PREFIX."_Untergruppen order by anzeige");
 			
-			while ($row = mysql_fetch_object($result))
+			while ($row = mysqli_fetch_object($result))
 				{	
 				
 					$id   = $row->id;

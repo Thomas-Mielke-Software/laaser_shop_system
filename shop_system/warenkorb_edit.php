@@ -19,22 +19,22 @@
 include ("xxxxconfig.php");
 
 
-$conn_id = mysql_connect($HOST,$ID,$PW);
-mysql_select_db($DB,$conn_id);
+$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
+//mysql_select_db($DB,$conn_id);
 
 if ($_GET['nr'] != "" ) 
 	{
 
-		if ($_POST['menge'] == "0") mysql_query("delete from ".$PREFIX."_Warenkorb where id = '".mysql_real_escape_string($_GET['id'])."'");
-		else mysql_query("update ".$PREFIX."_Warenkorb set menge ='".mysql_real_escape_string($_POST['menge'])."' where id = '".mysql_real_escape_string($_GET['id'])."'");
+		if ($_POST['menge'] == "0") mysqli_query($conn_id, "delete from ".$PREFIX."_Warenkorb where id = '".mysqli_real_escape_string($conn_id, $_GET['id'])."'");
+		else mysqli_query($conn_id, "update ".$PREFIX."_Warenkorb set menge ='".mysqli_real_escape_string($conn_id, $_POST['menge'])."' where id = '".mysqli_real_escape_string($conn_id, $_GET['id'])."'");
 
-		$result   = mysql_query("SELECT nr FROM ".$PREFIX."_Warenkorb where nr = '".mysql_real_escape_string($_GET['nr'])."'");
+		$result   = mysqli_query($conn_id, "SELECT nr FROM ".$PREFIX."_Warenkorb where nr = '".mysqli_real_escape_string($conn_id, $_GET['nr'])."'");
 		$ergebnis = mysql_num_rows($result);
 
 		if ($ergebnis == 0) 
 			{
 
-				mysql_query("delete from ".$PREFIX."_Session where id = '".mysql_real_escape_string($_GET['nr'])."'");
+				mysqli_query($conn_id, "delete from ".$PREFIX."_Session where id = '".mysqli_real_escape_string($conn_id, $_GET['nr'])."'");
 				$_GET['nr'] = "";
 	
 			}
