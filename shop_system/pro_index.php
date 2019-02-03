@@ -79,7 +79,7 @@ opentable("Artikel Verwaltung");
 		
 		$anzahl = "0";
 		$result2 = mysqli_query($conn_id, "SELECT * FROM ".$PREFIX."_Artikel where kategorie = '$id'");
-		$anzahl = mysql_num_rows($result2);
+		$anzahl = mysqli_num_rows($result2);
 		if (!isset($main_name)) $main_name = "";
 	?>
 	

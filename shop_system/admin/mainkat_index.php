@@ -44,7 +44,7 @@ if ($_POST['typ'] == "edit")
 	mysqli_query($conn_id, "update ".$PREFIX."_Hauptgruppen set anzeige ='".mysqli_real_escape_string($conn_id, $_POST['anzeige'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
 	mysqli_query($conn_id, "update ".$PREFIX."_Hauptgruppen set name ='".mysqli_real_escape_string($conn_id, $_POST['kategorie'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
 
-	mysql_close($conn_id);	
+	mysqli_close($conn_id);	
 	
 	$action = "erfolg";
 	
@@ -66,7 +66,7 @@ if ($_POST['typ'] == "new")
 	
 			mysqli_query($conn_id, "insert into ".$PREFIX."_Hauptgruppen (anzeige,name) VALUES ('".mysqli_real_escape_string($conn_id, $_POST['neu_anzeige'])."','".mysqli_real_escape_string($conn_id, $_POST['neu_kategorie'])."')"); 
 
-			mysql_close($conn_id);
+			mysqli_close($conn_id);
 			
 			$_POST['neu_anzeige'] = "";
 			$_POST['neu_kategorie'] = "";
@@ -100,7 +100,7 @@ if ($_GET['typ'] == "delete")
 
 		mysqli_query($conn_id, "delete from ".$PREFIX."_Hauptgruppen where name= '".mysqli_real_escape_string($conn_id, $_GET['name'])."'");
 
-		mysql_close($conn_id);
+		mysqli_close($conn_id);
 	
 		$action = "erfolg";	
 	}

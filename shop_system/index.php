@@ -26,7 +26,6 @@ include ("xxxxconfig.php");
 require_once ("templates.php");
 
 $conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
-//mysql_select_db($DB,$conn_id);
 
 if ($_GET['main_kat'] != '' && !IsNum($_GET['main_kat'])) die ("ung&uuml;ltiger URL-Parameter");
 
@@ -92,7 +91,7 @@ if ($header == "ok") {
 									 {
 									   $result2 = mysqli_query($conn_id, "select id , name from ".$PREFIX."_Artikel where kategorie = $id1 order by artikelnummer");	
 									   
-									   $num2    = mysql_numrows($result2);
+									   $num2    = mysqli_num_rows($result2);
 									   if ($num2)
 									   {
 									     echo  "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size='$FONTSIZE_NORMAL'><a href='show.php?main_kat=$id&kategorie=$id1&nr={$_GET['nr']}'>$name1</font></a><br>";	

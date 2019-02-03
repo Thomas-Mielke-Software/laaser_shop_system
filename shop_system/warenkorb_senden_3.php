@@ -80,7 +80,7 @@ if ($shop == "enable")
 	if ($action1 == "error" AND $_POST['zahlungsart'] != "Lastschrift"): 
 		{
 
-			mysql_close($conn_id);
+			mysqli_close($conn_id);
 			if ($_POST['check'] == "") header("Location: warenkorb_senden_2.php?action1=error&agbs={$_POST['agbs']}&name={$_POST['name']}&strasse={$_POST['strasse']}&plz={$_POST['plz']}&ort={$_POST['ort']}&telefon={$_POST['telefon']}&email={$_POST['email']}&zahlungsart={$_POST['zahlungsart']}&nr={$_GET['nr']}");
 			else header("Location: warenkorb_senden_2.php?action1=error&agbs={$_POST['agbs']}&name={$_POST['name']}&strasse={$_POST['strasse']}&plz={$_POST['plz']}&ort={$_POST['ort']}&telefon={$_POST['telefon']}&email={$_POST['email']}&check={$_POST['check']}&lief_name={$_POST['lief_name']}&lief_strasse={$_POST['lief_strasse']}&lief_plz={$_POST['lief_plz']}&lief_ort={$_POST['lief_ort']}&zahlungsart={$_POST['zahlungsart']}&nr={$_GET['nr']}");
 		
@@ -89,7 +89,7 @@ if ($shop == "enable")
 	elseif ($action1 == "error" AND $_POST['zahlungsart'] == "Lastschrift"): 
 		{
 
-			mysql_close($conn_id);
+			mysqli_close($conn_id);
 			if ($_POST['check'] == "") header("Location: warenkorb_senden_2.php?action1=error&agbs={$_POST['agbs']}&name={$_POST['name']}&strasse={$_POST['strasse']}&plz={$_POST['plz']}&ort={$_POST['ort']}&telefon={$_POST['telefon']}&email={$_POST['email']}&zahlungsart={$_POST['zahlungsart']}&kontoinhaber={$_POST['kontoinhaber']}&kontonr={$_POST['kontonr']}&blz={$_POST['blz']}&bank={$_POST['bank']}&nr={$_GET['nr']}");
 			else header("Location: warenkorb_senden_2.php?action1=error&agbs={$_POST['agbs']}&name={$_POST['name']}&strasse={$_POST['strasse']}&plz={$_POST['plz']}&ort={$_POST['ort']}&telefon={$_POST['telefon']}&email={$_POST['email']}&check={$_POST['check']}&lief_name={$_POST['lief_name']}&lief_strasse={$_POST['lief_strasse']}&lief_plz={$_POST['lief_plz']}&lief_ort={$_POST['lief_ort']}&zahlungsart={$_POST['zahlungsart']}&kontoinhaber={$_POST['kontoinhaber']}&kontonr={$_POST['kontonr']}&blz={$_POST['blz']}&bank={$_POST['bank']}&nr={$_GET['nr']}");
 		

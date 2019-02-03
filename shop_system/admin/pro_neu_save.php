@@ -73,7 +73,7 @@ if ($action == "erfolg")
 						chmod ("../images/artikel/$fotoname", 0777);
 					}
 			
-				mysql_close($conn_id);
+				mysqli_close($conn_id);
 			
 			}
 		

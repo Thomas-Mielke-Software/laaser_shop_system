@@ -24,7 +24,7 @@ $conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
 mysqli_query($conn_id, "delete from ".$PREFIX."_Session where id = '".mysqli_real_escape_string($conn_id, $_GET['nr'])."'");
 mysqli_query($conn_id, "delete from ".$PREFIX."_Warenkorb where nr = '".mysqli_real_escape_string($conn_id, $_GET['nr'])."'");
 
-mysql_close($conn_id);
+mysqli_close($conn_id);
 
 header("Location: warenkorb.php?nr=");
 

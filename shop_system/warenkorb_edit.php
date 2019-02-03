@@ -29,7 +29,7 @@ if ($_GET['nr'] != "" )
 		else mysqli_query($conn_id, "update ".$PREFIX."_Warenkorb set menge ='".mysqli_real_escape_string($conn_id, $_POST['menge'])."' where id = '".mysqli_real_escape_string($conn_id, $_GET['id'])."'");
 
 		$result   = mysqli_query($conn_id, "SELECT nr FROM ".$PREFIX."_Warenkorb where nr = '".mysqli_real_escape_string($conn_id, $_GET['nr'])."'");
-		$ergebnis = mysql_num_rows($result);
+		$ergebnis = mysqli_num_rows($result);
 
 		if ($ergebnis == 0) 
 			{
@@ -40,7 +40,7 @@ if ($_GET['nr'] != "" )
 			}
 	}
 	
-mysql_close($conn_id);
+mysqli_close($conn_id);
 header("Location: warenkorb.php?nr={$_GET['nr']}");
 
 ?>

@@ -43,9 +43,9 @@ if ($_GET['typ'] == "edit")
 		$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
 		//mysql_select_db($DB,$conn_id);
 
-		mysqli_query($conn_id, "update ".$PREFIX."_Zahlarten set art ='".mysql_real_escape_string($_POST['art'])."' where zahlartenid = '".mysql_real_escape_string($_POST['zahlartenid'])."'");
-		mysqli_query($conn_id, "update ".$PREFIX."_Zahlarten set beschreibung ='".mysql_real_escape_string($_POST['beschreibung'])."' where zahlartenid = '".mysql_real_escape_string($_POST['zahlartenid'])."'");
-		mysqli_query($conn_id, "update ".$PREFIX."_Zahlarten set art_kosten ='".mysql_real_escape_string($_POST['art_kosten'])."' where zahlartenid = '".mysql_real_escape_string($_POST['zahlartenid'])."'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Zahlarten set art ='".mysqli_real_escape_string($_POST['art'])."' where zahlartenid = '".mysqli_real_escape_string($_POST['zahlartenid'])."'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Zahlarten set beschreibung ='".mysqli_real_escape_string($_POST['beschreibung'])."' where zahlartenid = '".mysqli_real_escape_string($_POST['zahlartenid'])."'");
+		mysqli_query($conn_id, "update ".$PREFIX."_Zahlarten set art_kosten ='".mysqli_real_escape_string($_POST['art_kosten'])."' where zahlartenid = '".mysqli_real_escape_string($_POST['zahlartenid'])."'");
 		
 		$action = "erfolg";
 		
@@ -66,7 +66,7 @@ if ($_GET['typ'] == "new")
 				$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
 				//mysql_select_db($DB,$conn_id);
 		
-				mysqli_query($conn_id, "insert into ".$PREFIX."_Zahlarten (art,beschreibung,art_kosten) VALUES ('".mysql_real_escape_string($_POST['neu_art'])."','".mysql_real_escape_string($_POST['neu_beschreibung'])."','".mysql_real_escape_string($_POST['neu_art_kosten'])."')"); 
+				mysqli_query($conn_id, "insert into ".$PREFIX."_Zahlarten (art,beschreibung,art_kosten) VALUES ('".mysqli_real_escape_string($_POST['neu_art'])."','".mysqli_real_escape_string($_POST['neu_beschreibung'])."','".mysqli_real_escape_string($_POST['neu_art_kosten'])."')"); 
 								
 				$_POST['neu_art'] = "";
 				$_POST['neu_beschreibung'] = "";
@@ -87,7 +87,7 @@ if ($_GET['typ'] == "delete")
 		$conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
 		//mysql_select_db($DB,$conn_id);
 		
-		mysqli_query($conn_id, "delete from ".$PREFIX."_Zahlarten where zahlartenid = '".mysql_real_escape_string($_GET['zahlartenid'])."'");
+		mysqli_query($conn_id, "delete from ".$PREFIX."_Zahlarten where zahlartenid = '".mysqli_real_escape_string($_GET['zahlartenid'])."'");
 		
 		$action = "erfolg";
 
@@ -125,7 +125,7 @@ opentable("Zahlungsarten");
   //mysql_select_db($DB,$conn_id);
 
   $result = mysqli_query($conn_id, "select * from ".$PREFIX."_Zahlarten order by art");
-  $num = mysql_numrows($result);
+  $num = mysqli_numrows($result);
 	
   if ($num == 0) 
   	{

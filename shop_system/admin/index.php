@@ -16,12 +16,15 @@
 | angepasst für Fusion 7 von Thomas Mielke
 +-----------------------------------------------------*/
 
+
 require_once "../../../maincore.php";
 require_once THEMES."templates/header.php";
 require_once THEMES."templates/admin_header.php";
 
 include LOCALE.LOCALESET."index.php";
+
 include INCLUDES."comments_include.php";
+
 if (!iSUPERADMIN){ redirect("../../../index.php"); };
 
 //include FUSION_LANGUAGES.FUSION_LAN."admin/admin_main.php";

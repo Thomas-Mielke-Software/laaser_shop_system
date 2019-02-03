@@ -43,7 +43,7 @@ if ($_GET['bild'] == "ok")
 		else unlink("../images/artikel/{$_GET['id']}.jpg");
 	}
 
-mysql_close($conn_id);
+mysqli_close($conn_id);
 
 header("Location: pro_show.php?kategorie={$_GET['kategorie']}&name_k={$_GET['name_k']}&main_name={$_GET['main_name']}&start=0&sort={$_GET['sort']}&action=erfolg");
 

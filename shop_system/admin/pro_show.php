@@ -74,7 +74,7 @@ opentable("Artikel &Uuml;bersicht");
   $conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
   //mysql_select_db($DB,$conn_id);
   
-  $result = mysqli_query($conn_id, "select * from ".$PREFIX."_Artikel where kategorie = '".mysqli_real_escape_string($conn_id, $_GET['kategorie'])."' order by $sortby LIMIT ".mysqli_real_escape_string($conn_id, $_GET['start']).", $ds_anzahl");
+  $result = mysqli_query($conn_id, "select * from ".$PREFIX."_Artikel where kategorie = '".mysqli_real_escape_string($conn_id, $_GET['kategorie'])."' order by $sortby");		//  LIMIT ".mysqli_real_escape_string($conn_id, $_GET['start']).", $ds_anzahl    <-- war kaputt
   while ($row = mysqli_fetch_object($result))
  	{
 		
@@ -113,7 +113,7 @@ opentable("Artikel &Uuml;bersicht");
 	<?php
 	
 	$result = mysqli_query($conn_id, "select id from ".$PREFIX."_Artikel where kategorie = ".mysqli_real_escape_string($conn_id, $_GET['kategorie'])."");
-	$num = mysql_numrows($result);
+	$num = mysqli_numrows($result);
 	
 	if ($num > $ds_anzahl) 
 	{

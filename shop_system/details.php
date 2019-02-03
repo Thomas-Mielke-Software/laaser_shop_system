@@ -29,7 +29,6 @@ if (!isset($_GET['main_kat'])) $_GET['main_kat'] = "";
 if (!isset($_GET['search'])) $_GET['search'] = "";
 
 $conn_id = mysqli_connect($HOST,$ID,$PW,$DB);
-//mysql_select_db($DB,$conn_id);
 
 $result = mysqli_query($conn_id, "select * from ".$PREFIX."_Artikel where id = '".mysqli_real_escape_string($conn_id, $_GET['id'])."'"); 
 

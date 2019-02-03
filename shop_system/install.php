@@ -21,8 +21,6 @@ include ("xxxxconfig.php");
 $db_test = @mysqli_connect($HOST,$ID,$PW,$DB);
 if ($db_test) {
 
- //mysql_select_db($DB,$db_test);
-
  $result = mysqli_query($conn_id, "select name,inhalt from ".$PREFIX."_Templates");
  if ($result) 
  {

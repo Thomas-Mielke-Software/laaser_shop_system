@@ -142,7 +142,7 @@ if ($get_vars['typ'] == "edit")
 		$name = "ds_anzahl";
 		mysqli_query($conn_id, "update ".$PREFIX."_Templates set inhalt ='{$post_vars['ds_anzahl']}' where name = '$name'");
 		
-		mysql_close($conn_id);
+		mysqli_close($conn_id);
 
 		$action = "erfolg";
 	

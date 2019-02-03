@@ -40,7 +40,7 @@ if ($_GET['typ'] == "delete")
 		
 		mysqli_query($conn_id, "delete from ".$PREFIX."_Bestellungen where nr= '".mysqli_real_escape_string($conn_id, $_GET['nr'])."'");
 		
-		mysql_close($conn_id);
+		mysqli_close($conn_id);
 	
 		$action = "erfolg";
 		

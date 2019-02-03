@@ -46,7 +46,7 @@ if ($_POST['typ'] == "edit")
 		mysqli_query($conn_id, "update ".$PREFIX."_Untergruppen set name ='".mysqli_real_escape_string($conn_id, $_POST['kategorie'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
 		mysqli_query($conn_id, "update ".$PREFIX."_Untergruppen set main_kat ='".mysqli_real_escape_string($conn_id, $_POST['main_kat'])."' where id = '".mysqli_real_escape_string($conn_id, $_POST['id'])."'");
 		
-		mysql_close($conn_id);
+		mysqli_close($conn_id);
 		
 		$action = "erfolg";
 
@@ -68,7 +68,7 @@ if (mysqli_real_escape_string($conn_id, $_POST['typ']) == "new")
 				
 				mysqli_query($conn_id, "insert into ".$PREFIX."_Untergruppen (anzeige,name,main_kat) VALUES ('".mysqli_real_escape_string($conn_id, $_POST['neu_anzeige'])."','".mysqli_real_escape_string($conn_id, $_POST['neu_kategorie'])."','".mysqli_real_escape_string($conn_id, $_POST['main_kat'])."')"); 
 			
-				mysql_close($conn_id);
+				mysqli_close($conn_id);
 				
 				$_POST['neu_anzeige'] = "";
 				$_POST['neu_kategorie'] = "";
@@ -86,7 +86,7 @@ if ($_GET['typ'] == "delete")
 		//mysql_select_db($DB,$conn_id);
 	
 		$result = mysqli_query($conn_id, "select id from ".$PREFIX."_Artikel where kategorie = '".mysqli_real_escape_string($conn_id, $_GET['id'])."'");
-		$num = mysql_numrows($result);
+		$num = mysqli_numrows($result);
 		
 		if ($num == "0") 
 			{
@@ -98,7 +98,7 @@ if ($_GET['typ'] == "delete")
 
 		else $action1 = "error";
 		
-		mysql_close($conn_id);
+		mysqli_close($conn_id);
 
 	}
 	
